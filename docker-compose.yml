@@ -1,0 +1,62 @@
+version: '3.7'
+
+services:
+  nginx:
+    depends_on:
+      - server
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3050:80"
+  client:
+    env_file: .env
+    build:
+      context: ./client
+      target: development
+      dockerfile: Dockerfile
+    container_name: client
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - '${FRONTEND_PORT}:${FRONTEND_PORT}'
+    volumes:
+      - './client:/client'
+      - '/client/node_modules'
+    restart: 'unless-stopped'
+    links:
+      - server
+    depends_on:
+      - server
+  server:
+    env_file: .env
+    build:
+      context: ./server
+      target: development
+      dockerfile: Dockerfile
+    container_name: server
+    ports:
+      - '${PORT}:${PORT}'
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    restart: 'unless-stopped'
+    depends_on:
+      - pg
+  pg:
+    image: postgres:14.1-alpine
+    container_name: pg
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      PGDATA: /data/postgres
+    ports:
+      - '${PG_PORT}:5432'
+    volumes:
+      - postgres:/data/postgres
+
+
+volumes:
+  postgres:
