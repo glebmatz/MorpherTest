@@ -6,7 +6,7 @@ App available at: [localhost:3050](http://localhost:3050)
 
 ### The following services included:
 * ***Nginx***
-* ***Frontend App*** (React, UI-Neumorphism)
+* ***Frontend App*** (React, axios)
 * ***Backend App*** (NodeJS, Express, Typeorm)
 * ***PostgreSQL DB***
 

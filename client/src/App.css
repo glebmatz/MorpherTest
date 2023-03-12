@@ -10,3 +10,11 @@
 .buttonRow {
   margin-bottom: 30px;
 }
+
+.buttonRow button {
+  outline: 0;
+  border: 1px solid blue;
+  padding: 12px;
+  background: white;
+  border-radius: 12px;
+}
