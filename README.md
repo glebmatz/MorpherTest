@@ -1,6 +1,9 @@
 # Morpher Test Task
 
-To start app just run `docker-compose up` command in the project directory
+To start app do the following:
+
+* Rename `.env.sample` to `.env` and fill database variables info
+* Run `docker-compose up` command in the project directory
 
 App available at: [localhost:3050](http://localhost:3050)
 
